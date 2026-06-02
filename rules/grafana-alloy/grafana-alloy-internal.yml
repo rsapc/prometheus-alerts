@@ -12,4 +12,4 @@ groups:
                 Alloy on (instance {{ $labels.instance }}) is not responding or has stopped running.
                   VALUE = {{ $value }}
                   LABELS = {{ $labels }}
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/grafana-alloy-internal/grafanaalloyservicedown/
+            runbook: https://wiki.ringsq.io/en/runbooks/grafana-alloy-internal/grafanaalloyservicedown/

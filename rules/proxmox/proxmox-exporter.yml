@@ -10,7 +10,7 @@ groups:
           annotations:
             summary: Proxmox node {{ $labels.node }} is down
             description: Check the alerting Proxmox host
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/proxmox-exporter/proxmoxnodedown/
+            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxnodedown/
         - alert: ProxmoxNodeTargetLost
           expr: |
             absent_over_time(proxmox_node_up[1h])
@@ -20,7 +20,7 @@ groups:
           annotations:
             summary: Proxmox node up metric absent for {{ $labels.node }}
             description: Something wrong with the exporter, the Proxmox API server(s) it is configured to make requests to, or the server the exporter is running on
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/proxmox-exporter/proxmoxnodetargetlost/
+            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxnodetargetlost/
         - alert: ProxmoxGuestDown
           expr: |
             proxmox_guest_up{tags!~".*;?standby;?.*"} == 0
@@ -30,7 +30,7 @@ groups:
           annotations:
             summary: Proxmox guest {{ $labels.name }} is down
             description: Guest {{ $labels.name }} of type {{ $labels.type }} on node {{ $labels.node }} is down
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/proxmox-exporter/proxmoxguestdown/
+            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxguestdown/
         - alert: ProxmoxGuestTargetLost
           expr: |
             absent_over_time(proxmox_guest_up[1h])
@@ -40,7 +40,7 @@ groups:
           annotations:
             summary: Proxmox guest up metric absent for {{ $labels.name }}
             description: Guest {{ $labels.name }} of type {{ $labels.type }} on node {{ $labels.node }} may be down
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/proxmox-exporter/proxmoxguesttargetlost/
+            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxguesttargetlost/
         - alert: ProxmoxDiskUnhealthy
           expr: "proxmox_node_disk_smart_status{devpath != \"/dev/sdc\"} == 0 \n"
           for: 1m
@@ -49,7 +49,7 @@ groups:
           annotations:
             summary: Proxmox disk {{ $labels.devpath }} is unhealthy
             description: The disk {{ $labels.devpath }} in node {{ $labels.node }} is reporting unhealthy in SMART tests
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/proxmox-exporter/proxmoxdiskunhealthy/
+            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxdiskunhealthy/
         - alert: ProxmoxCertificateExpiring
           expr: "proxmox_node_days_until_cert_expiration < 7 \n"
           for: 5m
@@ -58,7 +58,7 @@ groups:
           annotations:
             summary: Proxmox certificate on node {{ $labels.node }} is expiring in a week
             description: The certificate with subject {{ $labels.subject }} on that node is expiring in {{ $value }} days
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/proxmox-exporter/proxmoxcertificateexpiring/
+            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxcertificateexpiring/
         - alert: ProxmoxCertificateExpiringWarning
           expr: |
             proxmox_node_days_until_cert_expiration < 14
@@ -68,7 +68,7 @@ groups:
           annotations:
             summary: Proxmox certificate on node {{ $labels.node }} is expiring soon
             description: The certificate with subject {{ $labels.subject }} on that node is expiring in {{ $value }} days
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/proxmox-exporter/proxmoxcertificateexpiringwarning/
+            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxcertificateexpiringwarning/
         - alert: ProxmoxUnsharedStorageNearlyFull
           expr: |
             100 * (sum by (storage,node) (proxmox_node_storage_used_bytes{shared="false"}) / sum by (storage,node) (proxmox_node_storage_total_bytes)) > 90
@@ -78,7 +78,7 @@ groups:
           annotations:
             summary: Proxmox storage volume {{ $labels.node }}/{{ $labels.storage }} nearly full
             description: Volume of type {{ $labels.type }} is {{ $value }}% full
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/proxmox-exporter/proxmoxunsharedstoragenearlyfull/
+            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxunsharedstoragenearlyfull/
         - alert: ProxmoxUnsharedStorageFilling
           expr: |
             100 * (sum by (storage,node) (proxmox_node_storage_used_bytes{shared="false"}) / sum by (storage,node) (proxmox_node_storage_total_bytes)) > 80
@@ -88,7 +88,7 @@ groups:
           annotations:
             summary: Proxmox storage volume {{ $labels.node }}/{{ $labels.storage }} nearly full
             description: Volume of type {{ $labels.type }} is {{ $value }}% full
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/proxmox-exporter/proxmoxunsharedstoragefilling/
+            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxunsharedstoragefilling/
         - alert: ProxmoxSharedStorageNearlyFull
           expr: |
             100 * (sum by (storage) (proxmox_node_storage_used_bytes{shared="true"}) / sum by (storage) (proxmox_node_storage_total_bytes)) > 90
@@ -98,7 +98,7 @@ groups:
           annotations:
             summary: Proxmox shared storage volume {{ $labels.storage }} nearly full
             description: Volume of type {{ $labels.type }} is {{ $value }}% full
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/proxmox-exporter/proxmoxsharedstoragenearlyfull/
+            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxsharedstoragenearlyfull/
         - alert: ProxmoxSharedStorageFilling
           expr: |
             100 * (sum by (storage) (proxmox_node_storage_used_bytes{shared="true"}) / sum by (storage) (proxmox_node_storage_total_bytes)) > 80
@@ -108,7 +108,7 @@ groups:
           annotations:
             summary: Proxmox shared storage volume {{ $labels.storage }} nearly full
             description: Volume of type {{ $labels.type }} is {{ $value }}% full
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/proxmox-exporter/proxmoxsharedstoragefilling/
+            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxsharedstoragefilling/
         - alert: ProxmoxCPUAllocationHigh
           expr: |
             100 * (proxmox_node_cpus_allocated / proxmox_node_cpus_total) > 90
@@ -118,7 +118,7 @@ groups:
           annotations:
             summary: Proxmox node {{ $labels.node }} has {{ $value }}% of its CPU allocated to guests
             description: It is recommended to keep more of your node's CPU unallocated for use by PVE and other server applications your Proxmox node runs
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/proxmox-exporter/proxmoxcpuallocationhigh/
+            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxcpuallocationhigh/
         - alert: ProxmoxMemoryAllocationHigh
           expr: |
             100 * (proxmox_node_memory_allocated_bytes / proxmox_node_memory_total_bytes) > 90
@@ -128,4 +128,4 @@ groups:
           annotations:
             summary: Proxmox node {{ $labels.node }} has {{ $value }}% of its memory allocated to guests
             description: It is recommended to keep more of your node's memory unallocated for use by PVE and other server applications your Proxmox node runs
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/proxmox-exporter/proxmoxmemoryallocationhigh/
+            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxmemoryallocationhigh/

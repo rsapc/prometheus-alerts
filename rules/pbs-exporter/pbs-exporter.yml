@@ -9,7 +9,7 @@ groups:
           annotations:
             summary: Proxmox Backup Server down
             description: Proxmox Backup Server {{ $labels.instance }} is not available.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/pbs-exporter/proxmoxbackuphostdown/
+            runbook: https://wiki.ringsq.io/en/runbooks/pbs-exporter/proxmoxbackuphostdown/
         - alert: ProxmoxBackupSnapshotVerifyFailed
           expr: sum by (vm_id, vm_name) (max_over_time(pbs_snapshot_vm_last_verify[2d]) and pbs_snapshot_vm_count > 1) == 0
           for: 2m
@@ -18,7 +18,7 @@ groups:
           annotations:
             summary: Last verified Proxmox snapshot older than 2 days
             description: Last verified snapshot of vm {{ $labels.vm_name }} is older than 2 days.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/pbs-exporter/proxmoxbackupsnapshotverifyfailed/
+            runbook: https://wiki.ringsq.io/en/runbooks/pbs-exporter/proxmoxbackupsnapshotverifyfailed/
         - alert: ProxmoxBackupSnapshotOutdated
           expr: (time() - avg_over_time(pbs_snapshot_vm_last_timestamp[5m])) / 3600 / 24 > 2
           for: 2m
@@ -27,7 +27,7 @@ groups:
           annotations:
             summary: Last snapshot of vm is older than 2 days
             description: Last snapshot of vm {{ $labels.vm_name }} is older than 2 days.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/pbs-exporter/proxmoxbackupsnapshotoutdated/
+            runbook: https://wiki.ringsq.io/en/runbooks/pbs-exporter/proxmoxbackupsnapshotoutdated/
         - alert: ProxmoxBackupPoolDiskOutOfSpace
           expr: pbs_used / pbs_size * 100 > 90
           for: 2m
@@ -38,7 +38,7 @@ groups:
             description: |-
                 Disk is almost full (< 10% left)
                   VALUE = {{ $value }}
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/pbs-exporter/proxmoxbackuppooldiskoutofspace/
+            runbook: https://wiki.ringsq.io/en/runbooks/pbs-exporter/proxmoxbackuppooldiskoutofspace/
         - alert: ProxmoxBackupPoolDiskFillingUpInFourDays
           expr: pbs_used / pbs_size > 0.7 and pbs_used > 0 and predict_linear(pbs_available[6h], 4 * 24 * 3600) < 0
           for: 30m
@@ -47,7 +47,7 @@ groups:
           annotations:
             summary: Proxmox datastore is filling up.
             description: Based on recent sampling, the datastore {{ $labels.datastore }} is expected to fill up withing four days. Currently {{ $value | humanizePercentage }} is available.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/pbs-exporter/proxmoxbackuppooldiskfillingupinfourdays/
+            runbook: https://wiki.ringsq.io/en/runbooks/pbs-exporter/proxmoxbackuppooldiskfillingupinfourdays/
         - alert: ProxmoxBackupRootDiskOutOfSpace
           expr: pbs_host_disk_used / pbs_host_disk_total * 100 > 90
           for: 2m
@@ -58,7 +58,7 @@ groups:
             description: |-
                 Disk is almost full (< 10% left)
                   VALUE = {{ $value }}
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/pbs-exporter/proxmoxbackuprootdiskoutofspace/
+            runbook: https://wiki.ringsq.io/en/runbooks/pbs-exporter/proxmoxbackuprootdiskoutofspace/
         - alert: ProxmoxBackupRootDiskFillingUpInFourDays
           expr: pbs_host_disk_used / pbs_host_disk_total > 0.7 and pbs_host_disk_used > 0 and predict_linear(pbs_host_disk_available[6h], 4 * 24 * 3600) < 0
           for: 30m
@@ -67,7 +67,7 @@ groups:
           annotations:
             summary: Proxmox root disk is filling up.
             description: Based on recent sampling, the root disk {{ $labels.instance }} is expected to fill up withing four days. Currently {{ $value | humanizePercentage }} is available.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/pbs-exporter/proxmoxbackuprootdiskfillingupinfourdays/
+            runbook: https://wiki.ringsq.io/en/runbooks/pbs-exporter/proxmoxbackuprootdiskfillingupinfourdays/
         - alert: ProxmoxBackupHostOutOfMemory
           expr: pbs_host_memory_used / (pbs_host_memory_used + pbs_host_memory_free) * 100 > 90
           for: 2m
@@ -79,7 +79,7 @@ groups:
                 Node memory is filling up (< 10% left)
                   VALUE = {{ $value }}
                   LABELS = {{ $labels }}
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/pbs-exporter/proxmoxbackuphostoutofmemory/
+            runbook: https://wiki.ringsq.io/en/runbooks/pbs-exporter/proxmoxbackuphostoutofmemory/
         - alert: ProxmoxBackupHostSwapIsFillingUp
           expr: pbs_host_swap_used / (pbs_host_swap_used + pbs_host_swap_free) * 100 > 80
           for: 2m
@@ -91,7 +91,7 @@ groups:
                 Swap is filling up (> 80%)
                   VALUE = {{ $value }}
                   LABELS = {{ $labels }}
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/pbs-exporter/proxmoxbackuphostswapisfillingup/
+            runbook: https://wiki.ringsq.io/en/runbooks/pbs-exporter/proxmoxbackuphostswapisfillingup/
         - alert: ProxmoxBackupHostHighCpuLoad
           expr: avg_over_time(pbs_host_cpu_usage[2m]) > 0.8
           for: 10m
@@ -103,7 +103,7 @@ groups:
                 CPU load is > 80%
                   VALUE = {{ $value }}
                   LABELS = {{ $labels }}
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/pbs-exporter/proxmoxbackuphosthighcpuload/
+            runbook: https://wiki.ringsq.io/en/runbooks/pbs-exporter/proxmoxbackuphosthighcpuload/
         - alert: ProxmoxBackupHostHighIowait
           expr: avg by (instance) (rate(pbs_host_io_wait[5m]) * 100) > 10
           for: 0m
@@ -115,4 +115,4 @@ groups:
                 CPU iowait > 10%. A high iowait means that you are disk or network bound.
                   VALUE = {{ $value }}
                   LABELS = {{ $labels }}
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/pbs-exporter/proxmoxbackuphosthighiowait/
+            runbook: https://wiki.ringsq.io/en/runbooks/pbs-exporter/proxmoxbackuphosthighiowait/

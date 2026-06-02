@@ -9,7 +9,7 @@ groups:
           annotations:
             summary: FreeRADIUS is down
             description: The FreeRADIUS server is not reachable. Please check the server immediately.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/freeradius-exporter/freeradiusdown/
+            runbook: https://wiki.ringsq.io/en/runbooks/freeradius-exporter/freeradiusdown/
         - alert: FreeRADIUSHighAccountingQueueLength
           expr: freeradius_queue_len_acct > 100
           for: 5m
@@ -18,7 +18,7 @@ groups:
           annotations:
             summary: High Accounting Queue Length
             description: The accounting queue length ({{ $value }}) is above the threshold of 100.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/freeradius-exporter/freeradiushighaccountingqueuelength/
+            runbook: https://wiki.ringsq.io/en/runbooks/freeradius-exporter/freeradiushighaccountingqueuelength/
         - alert: FreeRADIUSHighAuthenticationQueueLength
           expr: freeradius_queue_len_auth > 100
           for: 5m
@@ -27,7 +27,7 @@ groups:
           annotations:
             summary: High Authentication Queue Length
             description: The authentication queue length ({{ $value }}) is above the threshold of 100.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/freeradius-exporter/freeradiushighauthenticationqueuelength/
+            runbook: https://wiki.ringsq.io/en/runbooks/freeradius-exporter/freeradiushighauthenticationqueuelength/
         - alert: FreeRADIUSHighProxyQueueLength
           expr: freeradius_queue_len_proxy > 100
           for: 5m
@@ -36,7 +36,7 @@ groups:
           annotations:
             summary: High Proxy Queue Length
             description: The proxy queue length ({{ $value }}) is above the threshold of 100.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/freeradius-exporter/freeradiushighproxyqueuelength/
+            runbook: https://wiki.ringsq.io/en/runbooks/freeradius-exporter/freeradiushighproxyqueuelength/
         - alert: FreeRADIUSHighMalformedRequests
           expr: freeradius_total_acct_malformed_requests > 0 or freeradius_total_auth_malformed_requests > 0
           for: 5m
@@ -45,7 +45,7 @@ groups:
           annotations:
             summary: Malformed Requests Detected
             description: There are malformed requests in the FreeRADIUS server. Investigate the source of the malformed requests.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/freeradius-exporter/freeradiushighmalformedrequests/
+            runbook: https://wiki.ringsq.io/en/runbooks/freeradius-exporter/freeradiushighmalformedrequests/
         - alert: FreeRADIUSDroppedRequests
           expr: rate(freeradius_total_acct_dropped_requests[10m]) > 0 or rate(freeradius_total_auth_dropped_requests[10m]) > 0
           for: 10m
@@ -54,7 +54,7 @@ groups:
           annotations:
             summary: Dropped Requests Detected
             description: The FreeRADIUS server has dropped requests. Investigate potential performance issues or client misconfigurations.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/freeradius-exporter/freeradiusdroppedrequests/
+            runbook: https://wiki.ringsq.io/en/runbooks/freeradius-exporter/freeradiusdroppedrequests/
         - alert: FreeRADIUSHighQueuePPS
           expr: freeradius_queue_pps_in > 1000 or freeradius_queue_pps_out > 1000
           for: 5m
@@ -63,7 +63,7 @@ groups:
           annotations:
             summary: High Queue Packets Per Second
             description: The FreeRADIUS server is processing a high number of packets per second ({{ $value }}). Check server load.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/freeradius-exporter/freeradiushighqueuepps/
+            runbook: https://wiki.ringsq.io/en/runbooks/freeradius-exporter/freeradiushighqueuepps/
         - alert: FreeRADIUSStatsErrorDetected
           expr: freeradius_stats_error{error!~"^$"} == 1
           for: 5m
@@ -72,4 +72,4 @@ groups:
           annotations:
             summary: Stats Error Detected
             description: A stats error has been reported in the FreeRADIUS server. Investigate the source of the error.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/freeradius-exporter/freeradiusstatserrordetected/
+            runbook: https://wiki.ringsq.io/en/runbooks/freeradius-exporter/freeradiusstatserrordetected/

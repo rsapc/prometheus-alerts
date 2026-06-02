@@ -14,7 +14,7 @@ groups:
                 Status = error (1)
                 Last successful backup was {{ $value | humanizeDuration }} ago.
                 Please check Oxidized logs for this device.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/oxidized/oxidizedbackupfailed/
+            runbook: https://wiki.ringsq.io/en/runbooks/oxidized/oxidizedbackupfailed/
         - alert: OxidizedDeviceNoConnection
           expr: |
             oxidized_device_status == 0
@@ -27,7 +27,7 @@ groups:
                 Oxidized is unable to connect to device {{ $labels.name }} ({{ $labels.group }}).
                 Status = no connection (0)
                 This has been the case for more than 30 minutes.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/oxidized/oxidizeddevicenoconnection/
+            runbook: https://wiki.ringsq.io/en/runbooks/oxidized/oxidizeddevicenoconnection/
         - alert: OxidizedDeviceNeverBackedUp
           expr: |
             oxidized_device_status == 1
@@ -41,7 +41,7 @@ groups:
                 Oxidized has never successfully backed up device {{ $labels.name }}.
                 Status = never backed up (1)
                 This device may be newly added or permanently failing.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/oxidized/oxidizeddeviceneverbackedup/
+            runbook: https://wiki.ringsq.io/en/runbooks/oxidized/oxidizeddeviceneverbackedup/
         - alert: OxidizedBackupVeryOld
           expr: |
             time() - oxidized_device_last_backup_end > 86400 * 2
@@ -56,7 +56,7 @@ groups:
                 Last successful backup of {{ $labels.name }} is older than 2 days.
                 Age: {{ $value | humanizeDuration }}
                 Device is still marked as success, but backup is stale.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/oxidized/oxidizedbackupveryold/
+            runbook: https://wiki.ringsq.io/en/runbooks/oxidized/oxidizedbackupveryold/
         - alert: OxidizedBackupVeryOldCritical
           expr: |
             time() - oxidized_device_last_backup_end > 86400 * 7
@@ -70,7 +70,7 @@ groups:
                 Device {{ $labels.name }} has not been backed up in over 7 days!
                 Last backup: {{ $value | humanizeDuration }} ago
                 Immediate attention required.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/oxidized/oxidizedbackupveryoldcritical/
+            runbook: https://wiki.ringsq.io/en/runbooks/oxidized/oxidizedbackupveryoldcritical/
         - alert: OxidizedConnectionDown
           expr: |
             oxidized_status == 0
@@ -83,4 +83,4 @@ groups:
                 The prometheus exporter cannot communicate with Oxidized instance.
                 oxidized_status = 0 (error)
                 Check exporter logs, connectivity and Oxidized service status.
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/oxidized/oxidizedconnectiondown/
+            runbook: https://wiki.ringsq.io/en/runbooks/oxidized/oxidizedconnectiondown/

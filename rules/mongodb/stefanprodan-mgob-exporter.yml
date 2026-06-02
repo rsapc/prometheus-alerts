@@ -12,4 +12,4 @@ groups:
                 MongoDB backup has failed
                   VALUE = {{ $value }}
                   LABELS = {{ $labels }}
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/stefanprodan-mgob-exporter/mgobbackupfailed/
+            runbook: https://wiki.ringsq.io/en/runbooks/stefanprodan-mgob-exporter/mgobbackupfailed/

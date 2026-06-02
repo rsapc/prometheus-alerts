@@ -12,7 +12,7 @@ groups:
                 Failed to fetch SSL information {{ $labels.instance }}
                   VALUE = {{ $value }}
                   LABELS = {{ $labels }}
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/ribbybibby-ssl-exporter/sslcertificateprobefailed/
+            runbook: https://wiki.ringsq.io/en/runbooks/ribbybibby-ssl-exporter/sslcertificateprobefailed/
         - alert: SslCertificateOscpStatusUnknown
           expr: ssl_ocsp_response_status == 2
           for: 0m
@@ -24,7 +24,7 @@ groups:
                 Failed to get the OSCP status {{ $labels.instance }}
                   VALUE = {{ $value }}
                   LABELS = {{ $labels }}
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/ribbybibby-ssl-exporter/sslcertificateoscpstatusunknown/
+            runbook: https://wiki.ringsq.io/en/runbooks/ribbybibby-ssl-exporter/sslcertificateoscpstatusunknown/
         - alert: SslCertificateRevoked
           expr: ssl_ocsp_response_status == 1
           for: 0m
@@ -36,7 +36,7 @@ groups:
                 SSL certificate revoked {{ $labels.instance }}
                   VALUE = {{ $value }}
                   LABELS = {{ $labels }}
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/ribbybibby-ssl-exporter/sslcertificaterevoked/
+            runbook: https://wiki.ringsq.io/en/runbooks/ribbybibby-ssl-exporter/sslcertificaterevoked/
         - alert: SslCertificateExpiry(<7Days)
           expr: ssl_verified_cert_not_after{chain_no="0"} - time() < 86400 * 7
           for: 0m
@@ -48,4 +48,4 @@ groups:
                 {{ $labels.instance }} Certificate is expiring in 7 days
                   VALUE = {{ $value }}
                   LABELS = {{ $labels }}
-            runbook: https://srerun.github.io/prometheus-alerts/runbooks/ribbybibby-ssl-exporter/sslcertificateexpiry(<7days)/
+            runbook: https://wiki.ringsq.io/en/runbooks/ribbybibby-ssl-exporter/sslcertificateexpiry(<7days)/
