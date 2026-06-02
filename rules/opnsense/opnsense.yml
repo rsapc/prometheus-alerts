@@ -100,18 +100,18 @@ groups:
                   VALUE = {{ $value }}
                   LABELS = {{ $labels }}
             runbook: https://wiki.ringsq.io/en/runbooks/opnsense/opnsenseexporterdown/
-        - alert: OPNsenseFirmwareRebootRequired
-          expr: opnsense_firmware_needs_reboot == 1
-          for: 10m
-          labels:
-            severity: info
-          annotations:
-            summary: OPNsense firmware reboot required (instance {{ $labels.opnsense_instance }})
-            description: |-
-                OPNsense requires a reboot after firmware update
-                  VALUE = {{ $value }}
-                  LABELS = {{ $labels }}
-            runbook: https://wiki.ringsq.io/en/runbooks/opnsense/opnsensefirmwarerebootrequired/
+#        - alert: OPNsenseFirmwareRebootRequired
+#          expr: opnsense_firmware_needs_reboot == 1
+#          for: 10m
+#          labels:
+#            severity: info
+#          annotations:
+#            summary: OPNsense firmware reboot required (instance {{ $labels.opnsense_instance }})
+#            description: |-
+#                OPNsense requires a reboot after firmware update
+#                  VALUE = {{ $value }}
+#                  LABELS = {{ $labels }}
+#            runbook: https://wiki.ringsq.io/en/runbooks/opnsense/opnsensefirmwarerebootrequired/
         - alert: OPNsenseWireGuardPeerStaleHandshake
           expr: (time() - opnsense_wireguard_peer_last_handshake_seconds) > 300 and on(device_name, opnsense_instance) opnsense_wireguard_interfaces_status == 1
           for: 5m

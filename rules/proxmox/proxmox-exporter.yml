@@ -11,16 +11,16 @@ groups:
             summary: Proxmox node {{ $labels.node }} is down
             description: Check the alerting Proxmox host
             runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxnodedown/
-        - alert: ProxmoxNodeTargetLost
-          expr: |
-            absent_over_time(proxmox_node_up[1h])
-          for: 1m
-          labels:
-            severity: critical
-          annotations:
-            summary: Proxmox node up metric absent for {{ $labels.node }}
-            description: Something wrong with the exporter, the Proxmox API server(s) it is configured to make requests to, or the server the exporter is running on
-            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxnodetargetlost/
+#        - alert: ProxmoxNodeTargetLost
+#          expr: |
+#            absent_over_time(proxmox_node_up[1h])
+#          for: 1m
+#          labels:
+#            severity: critical
+#          annotations:
+#            summary: Proxmox node up metric absent for {{ $labels.node }}
+#            description: Something wrong with the exporter, the Proxmox API server(s) it is configured to make requests to, or the server the exporter is running on
+#            runbook: https://wiki.ringsq.io/en/runbooks/proxmox-exporter/proxmoxnodetargetlost/
         - alert: ProxmoxGuestDown
           expr: |
             proxmox_guest_up{tags!~".*;?standby;?.*"} == 0
