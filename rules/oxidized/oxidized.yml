@@ -18,7 +18,7 @@ groups:
         - alert: OxidizedDeviceNoConnection
           expr: |
             oxidized_device_status == 0
-          for: 30m
+          for: 2d
           labels:
             severity: warning
           annotations:
@@ -26,7 +26,7 @@ groups:
             description: |
                 Oxidized is unable to connect to device {{ $labels.name }} ({{ $labels.group }}).
                 Status = no connection (0)
-                This has been the case for more than 30 minutes.
+                This has been the case for more than 2 days.
             runbook: https://wiki.ringsq.io/en/runbooks/oxidized/oxidizeddevicenoconnection/
         - alert: OxidizedDeviceNeverBackedUp
           expr: |
