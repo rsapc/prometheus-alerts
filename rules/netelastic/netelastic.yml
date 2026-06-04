@@ -56,7 +56,7 @@ groups:
             description: 'Total sessions on slot 0 is below 1 for more than 5 minutes (current value: {{ $value }}). This may indicate a service disruption.'
             runbook: https://wiki.ringsq.io/en/runbooks/netelastic/lowsessioncount/
         - alert: HighSNMPScrapeDuration
-          expr: snmp_scrape_duration_seconds{module="netelastic"} > 1
+          expr: snmp_scrape_duration_seconds{module="netelastic"} > 5
           for: 5m
           labels:
             severity: warning
