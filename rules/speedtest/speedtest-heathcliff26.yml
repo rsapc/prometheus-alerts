@@ -1,0 +1,84 @@
+groups:
+    - name: speedtest-priority-alerts
+      rules:
+        - alert: SpeedtestFailed
+          expr: speedtest_up == 0
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            summary: Speedtest failed
+            description: |
+                Speedtest has not completed successfully for at least 15 minutes.
+            runbook: https://wiki.ringsq.io/en/runbooks/speedtest-heathcliff26/speedtestfailed/
+        - alert: SpeedtestDownloadBelowBaseline
+          expr: |
+            speedtest_download_megabits_per_second
+              <
+            avg_over_time(speedtest_download_megabits_per_second[10d]) * 0.75
+          for: 1h
+          labels:
+            severity: warning
+          annotations:
+            summary: Download throughput below baseline
+            description: |
+                Download throughput on {{ $labels.instance }} is {{ printf "%.0f" $value }} Mbps, which is more than 25% below its 10-day average.
+            runbook: https://wiki.ringsq.io/en/runbooks/speedtest-heathcliff26/speedtestdownloadbelowbaseline/
+        - alert: SpeedtestUploadBelowBaseline
+          expr: |
+            speedtest_upload_megabits_per_second
+              <
+            avg_over_time(speedtest_upload_megabits_per_second[10d]) * 0.75
+          for: 1h
+          labels:
+            severity: warning
+          annotations:
+            summary: Upload throughput below baseline
+            description: |
+                Upload throughput on {{ $labels.instance }} is {{ printf "%.0f" $value }} Mbps, which is more than 25% below its 10-day average.
+            runbook: https://wiki.ringsq.io/en/runbooks/speedtest-heathcliff26/speedtestuploadbelowbaseline/
+        - alert: SpeedtestLatencyAboveBaseline
+          expr: |
+            speedtest_ping_latency_milliseconds
+              >
+            avg_over_time(speedtest_ping_latency_milliseconds[10d]) * 2
+            and
+            speedtest_ping_latency_milliseconds > 10
+          for: 30m
+          labels:
+            severity: warning
+          annotations:
+            summary: Latency above baseline
+            description: |
+                Ping latency on {{ $labels.instance }} is {{ printf "%.1f" $value }} ms, exceeding 2x its 10-day average.
+            runbook: https://wiki.ringsq.io/en/runbooks/speedtest-heathcliff26/speedtestlatencyabovebaseline/
+        - alert: SpeedtestHighJitter
+          expr: speedtest_jitter_latency_milliseconds > 10
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: High jitter detected
+            description: |
+                Jitter on {{ $labels.instance }} is {{ printf "%.1f" $value }} ms.
+            runbook: https://wiki.ringsq.io/en/runbooks/speedtest-heathcliff26/speedtesthighjitter/
+        - alert: SpeedtestDownloadCritical
+          expr: speedtest_download_megabits_per_second < 500
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            summary: Severely degraded download throughput
+            description: |
+                Download throughput on {{ $labels.instance }} is {{ printf "%.0f" $value }} Mbps.
+            runbook: https://wiki.ringsq.io/en/runbooks/speedtest-heathcliff26/speedtestdownloadcritical/
+        - alert: SpeedtestUploadCritical
+          expr: speedtest_upload_megabits_per_second < 500
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            summary: Severely degraded upload throughput
+            description: |
+                Upload throughput on {{ $labels.instance }} is {{ printf "%.0f" $value }} Mbps.
+            runbook: https://wiki.ringsq.io/en/runbooks/speedtest-heathcliff26/speedtestuploadcritical/
