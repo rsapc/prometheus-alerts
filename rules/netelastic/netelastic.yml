@@ -75,6 +75,7 @@ groups:
             summary: BNG outage in system {{ $labels.system }}
             description: |
                 All BNG instances in system {{ $labels.system }} are down. Customers will experience an outage.
+            runbook: https://srerun.github.io/prometheus-alerts/runbooks/netelastic/bngsystemoutage/
         - alert: BNGPartialSystemOutage
           expr: |
             ( (
@@ -102,3 +103,4 @@ groups:
             summary: BNG outage in system {{ $labels.system }}
             description: |
                 All BNG instances in system {{ $labels.system }} are down. Customers will experience an outage.
+            runbook: https://srerun.github.io/prometheus-alerts/runbooks/netelastic/bngpartialsystemoutage/
