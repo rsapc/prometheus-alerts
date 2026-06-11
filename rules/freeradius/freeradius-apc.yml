@@ -11,7 +11,7 @@ groups:
               sum(freeradius_up{system!="None"}) by (system)
               <
               count(freeradius_up{system!="None"}) by (system)
-            ) or (            
+            )) or (            
             (
               sum(radius_success{system!="None"}) by (system) > 0
             )
