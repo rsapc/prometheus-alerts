@@ -49,7 +49,7 @@ type Data struct {
 const groqModel groq.ModelID = "llama-3.3-70b-versatile"
 
 // const filename = "blackbox.yaml"
-const runbook_url = "https://srerun.github.io/prometheus-alerts/runbooks"
+const runbook_url = "https://wiki.ringsq.io/runbooks"
 const runbookPath = "content/runbooks"
 const rulesPath = "rules"
 const contentTmpl = `## Meaning
