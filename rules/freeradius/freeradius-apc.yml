@@ -3,7 +3,7 @@ groups:
       rules:
         - alert: FreeRadiusPartialSystemOutage
           expr: |
-            (
+            ( (
               sum(freeradius_up{system!="None"}) by (system) > 0
             )
             and
@@ -11,7 +11,14 @@ groups:
               sum(freeradius_up{system!="None"}) by (system)
               <
               count(freeradius_up{system!="None"}) by (system)
+            ) or (            
+            (
+              sum(radius_success{system!="None"}) by (system) > 0
             )
+            and
+            (
+              avg(radius_response_code{system!="None"}) by (system) != 2
+            ) ) 
           for: 5m
           labels:
             severity: warning
@@ -19,9 +26,9 @@ groups:
             summary: FreeRADIUS partial outage in system {{ $labels.system }}
             description: |
                 Some FreeRADIUS instances in system {{ $labels.system }} are down, but at least one instance remains available.
-            runbook: https://wiki.ringsq.io/en/runbooks/runbooks/freeradius-apc/freeradiuspartialsystemoutage/
+            runbook: https://wiki.ringsq.io/runbooks/freeradius-apc/freeradiuspartialsystemoutage/
         - alert: FreeRadiusSystemOutage
-          expr: avg(freeradius_up{system!="None"}) by (system) == 0
+          expr: (avg(freeradius_up{system!="None"}) by (system) == 0) or ( avg(radius_response_code{system!="None"}) by (system) == 3)
           for: 5m
           labels:
             severity: critical
@@ -29,4 +36,4 @@ groups:
             summary: FreeRADIUS outage in system {{ $labels.system }}
             description: |
                 All FreeRADIUS instances in system {{ $labels.system }} are down. Customers will not be able to authenticate.
-            runbook: https://wiki.ringsq.io/en/runbooks/runbooks/freeradius-apc/freeradiussystemoutage/
+            runbook: https://wiki.ringsq.io/runbooks/freeradius-apc/freeradiussystemoutage/
